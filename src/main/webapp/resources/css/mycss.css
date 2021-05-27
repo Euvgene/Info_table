@@ -1,0 +1,33 @@
+#myHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px
+}
+
+
+.myFooter {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #0f100f; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+}
+
+
+#img{
+    display:flex;
+    justify-content: center; /*центрируем элемент по горизонтали */
+    align-items: center; /* и вертикали */
+    width: 60%; /* задали размеры блоку-родителю */
+    height: 60%;
+    overflow: hidden; /* если элемент больше блока-родителя – обрезаем лишнее */
+}
+
+#Error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px
+}

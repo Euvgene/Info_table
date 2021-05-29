@@ -1,5 +1,4 @@
 
-
 .wideBox {
     clear: both;
     text-align: center;
@@ -10,7 +9,7 @@
     line-height: 80%;
 }
 
-#container {
+#containerDiagram {
     width: 900px;
     margin: 0 auto;
 }
@@ -22,14 +21,20 @@
 
 #chart {
     display: block;
-    margin: 0 0 50px 0;
+    margin: 0 0 50px 400px;
     float: left;
     cursor: pointer;
+    border-collapse: collapse;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+    background-position: 0 -100px;
 }
 
 #chartData {
-    width: 200px;
-    margin: 0 40px 0 0;
+    width: 400px;
+    height: 490px;
+    margin: 0 500px 0 0;
     float: right;
     border-collapse: collapse;
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
@@ -59,4 +64,18 @@
 
 #chartData tr:hover td {
     background: #f0f0f0;
+}
+
+
+#noResult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#statisticSince {
+    margin: 10px 10px;
+    font-weight: bold;
+    text-decoration:underline;
+    text-transform: uppercase;
 }

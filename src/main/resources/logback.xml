@@ -1,7 +1,7 @@
 <configuration>
 
-    <property name="HOME_LOG" value="logs/infoTab.log"/>
-    <property name="WARN_LOG" value="logs/infoTabWarn.log"/>
+    <property name="HOME_LOG" value="../log/dashboard.log"/>
+    <property name="WARN_LOG" value="../log/dashboardWarn.log"/>
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>
@@ -9,7 +9,7 @@
         <onMatch>ACCEPT</onMatch>
         <onMismatch>DENY</onMismatch>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>log/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each archived file, size max 10MB -->
             <maxFileSize>10MB</maxFileSize>
             <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
@@ -32,7 +32,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/archived/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>log/archived/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each archived file, size max 10MB -->
             <maxFileSize>10MB</maxFileSize>
             <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
@@ -46,11 +46,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.evgenii.my_market" level="error" additivity="false">
+    <logger name="com.evgenii.info_table" level="error" additivity="false">
         <appender-ref ref="FILE-WARN"/>
     </logger>
 
-    <logger name="com.evgenii.my_market" level="debug" additivity="false">
+    <logger name="com.evgenii.info_table" level="debug" additivity="false">
         <appender-ref ref="FILE-ROLLING"/>
     </logger>
 

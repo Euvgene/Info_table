@@ -1,4 +1,4 @@
-#myHeader{
+#myHeader {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,7 +8,8 @@
 
 .myFooter {
     position: fixed; /* Фиксированное положение */
-    left: 0; bottom: 0; /* Левый нижний угол */
+    left: 0;
+    bottom: 0; /* Левый нижний угол */
     padding: 10px; /* Поля вокруг текста */
     background: #0f100f; /* Цвет фона */
     color: #fff; /* Цвет текста */
@@ -16,8 +17,8 @@
 }
 
 
-#img{
-    display:flex;
+#img {
+    display: flex;
     justify-content: center; /*центрируем элемент по горизонтали */
     align-items: center; /* и вертикали */
     width: 60%; /* задали размеры блоку-родителю */
@@ -25,9 +26,56 @@
     overflow: hidden; /* если элемент больше блока-родителя – обрезаем лишнее */
 }
 
-#Error{
+#Error {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 50px
+}
+
+#dateForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px
+}
+
+#color1 {
+    color: #66049b;
+}
+
+#color2 {
+    color: #3e960f;
+}
+
+#color3 {
+    color: #b023bf;
+}
+
+#color4 {
+    color: #c87328;
+}
+
+#color5 {
+    color: #0d7051;
+}
+
+#color6 {
+    color: #b31049;
+}
+
+#color7 {
+    color: #0e1010;
+}
+
+#color8 {
+    color: #727217;
+}
+
+#color9 {
+    color: #0a40ab;
+}
+
+#color10 {
+    color: #cc9aef;
 }

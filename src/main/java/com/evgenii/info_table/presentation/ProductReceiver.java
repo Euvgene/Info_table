@@ -4,6 +4,7 @@ import com.evgenii.info_table.bean.PushBean;
 import com.evgenii.info_table.data.ProductStatisticDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class ProductReceiver extends Connector {
     private PushBean pushBean;
 
     private String fromDate;
+    private boolean isConnected;
     private boolean isDisconnected;
     private LocalDateTime updateTime;
 
@@ -43,17 +45,20 @@ public class ProductReceiver extends Connector {
 
     @PostConstruct
     public void init() {
+        fromDate = LocalDate.now().withDayOfMonth(1).toString();
         try {
             productStatisticDtos = getObjectMapper().readValue(
-                    getProductTarget().queryParam("first_date", LocalDate.now().withDayOfMonth(1))
+                    getProductTarget().queryParam("first_date", fromDate)
                             .request(MediaType.APPLICATION_JSON).get(String.class),
                     new TypeReference<List<ProductStatisticDto>>() {
                     }
             );
+            setDisconnected(false);
+            setConnected(true);
             setUpdateTime(LocalDateTime.now());
         } catch (RuntimeException | JsonProcessingException e) {
+            setConnected(false);
             updateTime = LocalDateTime.now();
-            isDisconnected = false;
             productStatisticDtos = null;
             LOGGER.warn(e.getMessage());
         }
@@ -75,8 +80,9 @@ public class ProductReceiver extends Connector {
 
     public void update() throws JsonProcessingException {
         setUpdateTime(LocalDateTime.now());
-        setDisconnected(false);
         setProductStatisticDtos(getStatistic());
+        setDisconnected(false);
+        setConnected(true);
         pushBean.sendMessage("update");
     }
 
@@ -84,13 +90,18 @@ public class ProductReceiver extends Connector {
         return productStatisticDtos;
     }
 
-    public void submitted() throws JsonProcessingException {
-        update();
+    public void submitted(String date) throws JsonProcessingException {
+        setFromDate(date);
+        setDisconnected(false);
+        setConnected(true);
+        setProductStatisticDtos(getStatistic());
     }
 
-    public void disconnect(){
-        setDisconnected(true);
-        pushBean.sendMessage("disconnect");
+    public void disconnect() {
+        if (isConnected) {
+            setDisconnected(true);
+            pushBean.sendMessage("disconnect");
+        }
     }
 
     public String getTimeFormat() {

@@ -7,9 +7,6 @@
 
   <display-name>Market table info</display-name>
 
-  <error-page>
-    <location>/error.xhtml</location>
-  </error-page>
   <welcome-file-list>
     <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>

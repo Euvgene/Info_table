@@ -188,7 +188,7 @@
             <plugin>
               <groupId>com.google.cloud.tools</groupId>
               <artifactId>appengine-maven-plugin</artifactId>
-              <version>2.2.0</version>
+              <version>2.4.0</version>
               <configuration>
                 <!-- can be set w/ -DprojectId=myProjectId on command line -->
                 <projectId>info-table-317009</projectId>

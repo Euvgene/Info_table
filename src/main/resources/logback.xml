@@ -1,7 +1,7 @@
 <configuration>
 
-    <property name="HOME_LOG" value="../log/dashboard.log"/>
-    <property name="WARN_LOG" value="../log/dashboardWarn.log"/>
+    <property name="HOME_LOG" value="log/dashboard.log"/>
+    <property name="WARN_LOG" value="log/dashboardWarn.log"/>
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>

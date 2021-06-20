@@ -70,7 +70,7 @@
                     <p id="statisticSince">Statistics since</p>
                     <h:inputText a:type="date" value="#{productReceiver.fromDate}" binding="#{input}" id="date"/>
 
-                    <h:commandButton style="margin-left: 10px; background-color: grey" value="Change date"
+                    <h:commandButton style="margin-left: 10px; background-color: #808080" value="Change date"
                                      action="#{productReceiver.submitted(input.value)}"/>
                 </c:if>
             </h:form>
@@ -92,7 +92,7 @@
                                 <tr id="color#{loop.index}">
                                     <td align="center">#{product.name}</td>
                                     <td align="center">#{product.number}</td>
-                                    <td align="center">#{product.pricePerProduct * product.number}</td>
+                                    <td align="center">#{product.pricePerProduct}</td>
                                 </tr>
                             </c:forEach>
 

@@ -25,7 +25,6 @@ public abstract class Connector {
         productClient = ClientBuilder.newClient();
         productTarget = productClient.target("http://localhost:8189/api/v1/orders/product-statistic");
 
-
         objectMapper = new ObjectMapper();
     }
 

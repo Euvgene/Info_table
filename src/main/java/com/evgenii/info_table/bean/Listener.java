@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,11 +17,15 @@ import javax.servlet.annotation.WebListener;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
+/**
+ * Listener base class that connect to rabbitMq and read message from que.
+ * @author Boznyakov Evgenii
+ *
+ */
 @WebListener
 public class Listener implements ServletContextListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(Listener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Listener.class);
 
     @Inject
     ProductReceiver restReceiver;
@@ -32,7 +35,7 @@ public class Listener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
 
 
-        logger.info("Startup");
+        LOGGER.info("Startup");
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -40,12 +43,12 @@ public class Listener implements ServletContextListener {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare("infoTable", false, false, false, null);
-        logger.info(" [*] Waiting for messages. ");
+        LOGGER.info(" [*] Waiting for messages. ");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
 
-            logger.info(" [x] Received '" + message + "'");
+            LOGGER.info(" [x] Received '" + message + "'");
             if (message.equals("update")) {
                 restReceiver.update();
             } else {

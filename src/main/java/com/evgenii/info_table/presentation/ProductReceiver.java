@@ -4,7 +4,6 @@ import com.evgenii.info_table.bean.PushBean;
 import com.evgenii.info_table.data.ProductStatisticDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -23,6 +22,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
+/**
+ * Product receiver class to get product statistic.
+ *
+ * @author Boznyakov Evgenii
+ */
 @Named
 @Startup
 @Stateless
@@ -30,7 +35,9 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductReceiver extends Connector {
-
+    /**
+     * Creates an instance of this class using constructor-based dependency injection.
+     */
     @Inject
     private PushBean pushBean;
 
@@ -43,6 +50,10 @@ public class ProductReceiver extends Connector {
     private List<ProductStatisticDto> productStatisticDtos;
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductReceiver.class);
 
+    /**
+     * Sending request to get product statistic on start up.
+     * Check if connection exist
+     */
     @PostConstruct
     public void init() {
         fromDate = LocalDate.now().withDayOfMonth(1).toString();
@@ -64,6 +75,9 @@ public class ProductReceiver extends Connector {
         }
     }
 
+    /**
+     * Sending request to get product statistic.
+     */
     public List<ProductStatisticDto> getStatistic() throws JsonProcessingException {
         try {
             return getObjectMapper().readValue(
@@ -77,7 +91,10 @@ public class ProductReceiver extends Connector {
             return null;
         }
     }
-
+    /**
+     * After reading message in rabbitMq message update product statistic
+     * and push message to update statistic on page.
+     */
     public void update() throws JsonProcessingException {
         setUpdateTime(LocalDateTime.now());
         setProductStatisticDtos(getStatistic());
@@ -86,10 +103,16 @@ public class ProductReceiver extends Connector {
         pushBean.sendMessage("update");
     }
 
+    /**
+     *Method to get product on page using jstl .
+     */
     public List<ProductStatisticDto> getProducts() {
         return productStatisticDtos;
     }
 
+    /**
+     *Method to submit new date for statistic.
+     */
     public void submitted(String date) throws JsonProcessingException {
         setFromDate(date);
         setDisconnected(false);
@@ -97,6 +120,9 @@ public class ProductReceiver extends Connector {
         setProductStatisticDtos(getStatistic());
     }
 
+    /**
+     *Method set connection after receiving message from rabbitMq
+     */
     public void disconnect() {
         if (isConnected) {
             setDisconnected(true);
@@ -104,6 +130,9 @@ public class ProductReceiver extends Connector {
         }
     }
 
+    /**
+     *Method to show the last update if connection is lost
+     */
     public String getTimeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss");
         return updateTime.format(formatter);

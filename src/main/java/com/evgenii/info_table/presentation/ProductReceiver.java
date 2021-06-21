@@ -88,7 +88,8 @@ public class ProductReceiver extends Connector {
             );
 
         } catch (ProcessingException e) {
-            return null;
+            productStatisticDtos.clear();
+            return productStatisticDtos;
         }
     }
     /**
